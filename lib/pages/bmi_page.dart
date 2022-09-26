@@ -270,19 +270,21 @@ class _BmiPageState extends State<BmiPage> {
   }
 
   void _showResultDialog(double _bmi) {
-    String? _status;
+    String? status;
     if (_bmi < 18.5) {
-      _status = 'Underweight';
+      status = 'Underweight';
     } else if (_bmi >= 18.5 && _bmi < 25) {
-      _status = 'Normal';
+      status = 'Normal';
     } else if (_bmi >= 25 && _bmi < 30) {
-      _status = 'Overweight';
+      status = 'Overweight';
+    } else if (_bmi >= 30) {
+      status = 'Obesity';
     }
     showCupertinoDialog(
         context: context,
         builder: (context) {
           return CupertinoAlertDialog(
-            title: Text(_status!),
+            title: Text(status!),
             content: Text(
               _bmi.toStringAsFixed(2),
             ),
@@ -290,7 +292,7 @@ class _BmiPageState extends State<BmiPage> {
               CupertinoDialogAction(
                 child: const Text('Ok'),
                 onPressed: () {
-                    _saveResult(_bmi.toString(), _status!);
+                  _saveResult(_bmi.toString(), status!);
                   Navigator.pop(context);
                 },
               ),
